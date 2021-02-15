@@ -36,9 +36,9 @@ jobs:
       - name: test
         run: go test -race -coverprofile=coverage.txt -covermode=atomic ./...
       - uses: codecov/codecov-action@v1
-        if: matrix.os == 'ubuntu-latest' && matrix.go_version == '1.15.x' && github.repository.name != 'go-lib'
+        if: matrix.os == 'ubuntu-latest' && matrix.go_version == '1.15.x' && github.repository != 'aereal/go-lib'
   release:
-    if: github.ref == 'refs/heads/main' && github.repository.name != 'go-lib'
+    if: github.ref == 'refs/heads/main' && github.repository != 'aereal/go-lib'
     needs:
       - test
       - lint
