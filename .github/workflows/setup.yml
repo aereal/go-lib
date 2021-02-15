@@ -12,7 +12,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: |
-          cat readme-template.md | ruby -anlpe '$_.gsub!(%<${repo.name}>, %<${{ github.repository.name }}>)' > README.md
+          cat readme-template.md | ruby -anlpe '$_.gsub!(%<${repo.name}>, %<$REPO_NAME>)' > README.md
+        env:
+          REPO_NAME: ${{ github.repository.name }}
       - name: Create setup PR
         uses: peter-evans/create-pull-request@v3
         with:
