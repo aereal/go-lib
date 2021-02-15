@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: |
-          cat readme-template.md | ruby -anlpe '$_.gsub!(%<${repo.name}>, %<$REPO_NAME>)' > README.md
+          cat readme-template.md | ruby -anlpe '$_.gsub!(%<${repo.name}>, ENV[%<REPO_NAME>])' > README.md
         env:
           REPO_NAME: ${{ github.repository.name }}
       - name: Uninstall setup workflow
