@@ -11,12 +11,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/setup-go@v2
+        with:
+          go-version: '1.17.x'
       - run: |
           cat readme-template.md | ruby -anlpe '$_.gsub!(%<${repo.name}>, ENV[%<REPO_NAME>])' > README.md
         env:
           REPO_NAME: ${{ github.repository }}
       - name: Uninstall setup workflow
         run: rm .github/workflows/setup.yml
+      - name: update Go module name
+        run: go mod edit -module "github.com/$REPO_FULL_NAME"
+        env:
+          REPO_FULL_NAME: ${{ github.repository }}
       - name: Create setup PR
         uses: peter-evans/create-pull-request@v3
         with:
