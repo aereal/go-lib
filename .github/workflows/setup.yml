@@ -25,7 +25,7 @@ jobs:
         env:
           REPO_FULL_NAME: ${{ github.repository }}
       - name: Create setup PR
-        uses: peter-evans/create-pull-request@v3
+        uses: peter-evans/create-pull-request@v4
         with:
           commit-message: 'docs: update installed repository info'
           title: update repository information
